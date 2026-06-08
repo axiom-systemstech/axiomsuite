@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom Suite | Lanzadera DeepTech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+    /* --- VARIABLES DE DISEÑO CON SOPORTE DE TEMAS --- */
+    :root[data-theme="dark"] {
+        --bg-color: #050608;
+        --surface-color: rgba(13, 15, 22, 0.96);
+        --text-main: #F5F6F8;
+        --text-muted: #8E919A;
+        --accent-glow-1: #00ff66; /* Verde Esmeralda Cyberpunk */
+        --accent-glow-2: #00e5ff; /* Cyan Eléctrico */
+        --border-color: rgba(255, 255, 255, 0.07);
+        --code-bg: #0A0C12;
+        --glass-fill: rgba(255, 255, 255, 0.02);
+        --glass-stroke: rgba(255, 255, 255, 0.14);
+    }
+
+    :root[data-theme="light"] {
+        --bg-color: #F4F6F9;
+        --surface-color: rgba(255, 255, 255, 0.94);
+        --text-main: #12141C;
+        --text-muted: #626673;
+        --accent-glow-1: #00cc52; 
+        --accent-glow-2: #00b8cc; 
+        --border-color: rgba(0, 0, 0, 0.08);
+        --code-bg: #EAEFF5;
+        --glass-fill: rgba(0, 0, 0, 0.01);
+        --glass-stroke: rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow-x: hidden;
+        position: relative;
+        transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    /* --- GRADIENTES ORGÁNICOS DE FONDO --- */
+    .background-blob-1 {
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, var(--accent-glow-1) 0%, transparent 65%);
+        opacity: 0.18;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .background-blob-2 {
+        position: absolute;
+        top: 40%;
+        right: 10%;
+        width: 450px;
+        height: 450px;
+        background: radial-gradient(circle, var(--accent-glow-2) 0%, transparent 65%);
+        opacity: 0.15;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* --- ESTILOS DE ESTRUCTURA --- */
+    header {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .logo {
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+    }
+
+    .theme-toggle {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
+        padding: 8px 16px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+        background: var(--text-main);
+        color: var(--bg-color);
+    }
+
+    main {
+        max-width: 1100px; /* Ampliado para dar más espacio al Grid de herramientas */
+        width: 100%;
+        margin: auto;
+        padding: 20px 24px 80px 24px;
+        text-align: center;
+        z-index: 5;
+    }
+
+    .category-tag {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        display: block;
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        font-size: 52px;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 24px;
+    }
+
+    .subtitle {
+        font-size: 17px;
+        color: var(--text-muted);
+        line-height: 1.65;
+        max-width: 680px;
+        margin: 0 auto 48px auto;
+        font-weight: 300;
+    }
+
+    /* --- ESCENA DEL CRISTAL REFACTRIVO (CONTENEDOR GLOBAL) --- */
+    .glass-scene {
+        position: relative;
+        width: 100%;
+        margin: 0 auto 48px auto;
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border-color);
+    }
+
+    .glass-bg {
+        background-color: var(--surface-color);
+        padding: 48px 32px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        transition: background-color 0.5s ease;
+    }
+
+    .glass-wrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    /* --- GRID DE HERRAMIENTAS DE LA SUITE --- */
+    .suite-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        width: 100%;
+        position: relative;
+        z-index: 20; /* Por encima del pseudo-cristal para poder clicar los botones */
+    }
+
+    .suite-card {
+        background-color: var(--code-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .suite-card:hover {
+        border-color: var(--text-main);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .suite-card-header {
+        margin-bottom: 16px;
+    }
+
+    .suite-card h3 {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        margin-bottom: 12px;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .suite-card h3 i {
+        color: var(--accent-glow-2);
+        font-size: 14px;
+    }
+
+    .suite-card p {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+
+    /* --- MINI MATRIZ TÉCNICA DENTRO DE CADA CARD --- */
+    .tech-matrix {
+        list-style: none;
+        margin-bottom: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        padding-top: 12px;
+    }
+
+    .tech-matrix li {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tech-matrix li i {
+        color: var(--accent-glow-1);
+        font-size: 10px;
+    }
+
+    /* --- BOTÓN DE ACCIÓN ACCEDER --- */
+    .btn-action {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
+        padding: 12px 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        cursor: pointer;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+        background-color: var(--text-main);
+        color: var(--bg-color);
+        border-color: var(--text-main);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+        padding: 40px 24px;
+        text-align: center;
+        font-size: 11px;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-top: 1px solid var(--border-color);
+        width: 100%;
+        z-index: 10;
+    }
+</style>
+</head>
+<body>
+
+<div class="background-blob-1"></div>
+<div class="background-blob-2"></div>
+
+<header>
+    <div class="logo">Axiom Systems</div>
+    <button class="theme-toggle" id="themeToggle">Light Mode</button>
+</header>
+
+<main>
+    <span class="category-tag">CENTRO DE OPERACIONES LOCALES</span>
+    <h1>AXIOM SUITE</h1>
+    <p class="subtitle">La capa base de tu entorno de ejecución. Una colección de frameworks y utilidades soberanas diseñadas para operar al 100% en el lado del cliente (Client-Side), directo a la memoria de ejecución y con coste cero de tokens o servidores externos.</p>
+
+    <div class="glass-scene" id="glassScene">
+        <div class="glass-bg">
+            
+            <div class="suite-grid">
+<div class="suite-card">
+                    <div class="suite-card-header">
+                        <h3><i class="fa-solid fa-bolt"></i> Axiom TurboVec-Lite</h3>
+                        <p>An ultra-lightweight client-side simulation framework for local vector indexing, semantic text chunking, and embedding distance optimization. Run sovereign RAG pipelines instantly inside the client runtime context.</p>
+                        <ul class="tech-matrix">
+                            <li><i class="fa-solid fa-microchip"></i> In-Memory Indices (Spatial High-Dim Coordinates)</li>
+                            <li><i class="fa-solid fa-calculator"></i> TurboQuant Emulation (Cosine & Euclidean)</li>
+                            <li><i class="fa-solid fa-coins"></i> Zero Token Friction (Cost: €0.00)</li>
+                        </ul>
+                    </div>
+                    <a href="https://axiom-systemstech.github.io/axiom-turbovec-lite/" target="_blank" class="btn-action">
+                        Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="suite-card">
+                    <div class="suite-card-header">
+                        <h3><i class="fa-solid fa-eye"></i> Axiom Agent-Reach</h3>
+                        <p>An ultra-fast client-side simulation framework for agentic web navigation. Map, extract, and structure digital assets locally without expensive third-party API overhead. Grant your AI agents localized web vision while maintaining absolute data sovereignty.</p>
+                        <ul class="tech-matrix">
+                            <li><i class="fa-solid fa-network-wired"></i> No-API Protocol (Bypass Rate Limits & Data Tolls)</li>
+                            <li><i class="fa-solid fa-code-branch"></i> Dynamic Ingestion (X, Reddit, GitHub Trees)</li>
+                            <li><i class="fa-solid fa-server"></i> Zero Cloud Footprint (Cost: €0.00)</li>
+                        </ul>
+                    </div>
+                    <a href="https://axiom-systemstech.github.io/axiom-agent-reach/" target="_blank" class="btn-action">
+                        Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="suite-card">
+                    <div class="suite-card-header">
+                        <h3><i class="fa-solid fa-shield-halved"></i> Axiom Nomad-Scout</h3>
+                        <p>An ultra-lightweight, client-side intelligence gathering framework designed for localized open-source research compilation. Map out data integrity, structure target analytics, and generate tactical reports instantly—100% locally in your runtime memory.</p>
+                        <ul class="tech-matrix">
+                            <li><i class="fa-solid fa-terminal"></i> Sovereign Execution (No Telemetry, No Cloud Logging)</li>
+                            <li><i class="fa-solid fa-layer-group"></i> Zero-Cost Scalability (Zero Server Maintenance)</li>
+                            <li><i class="fa-solid fa-magnifying-glass"></i> Dynamic Scans (Trend Matrices / Security Audits)</li>
+                        </ul>
+                    </div>
+                    <a href="https://axiom-systemstech.github.io/axiom-nomad-scout/" target="_blank" class="btn-action">
+                        Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="suite-card">
+                    <div class="suite-card-header">
+                        <h3><i class="fa-solid fa-rocket"></i> Axiom Taste Refiner</h3>
+                        <p>An open-source prompt styling injector framework designed to eliminate generic, robotic LLM outputs. Infuse premium brand architecture, raw technical tone filters, and customized execution rules into your AI prompts instantly—100% locally.</p>
+                        <ul class="tech-matrix">
+                            <li><i class="fa-solid fa-brain"></i> Zero Hallucination Overlays (Architectural Modifiers)</li>
+                            <li><i class="fa-solid fa-sliders"></i> Dynamic Taste Matrices (Premium, Cyberpunk, Hacker)</li>
+                            <li><i class="fa-solid fa-key"></i> Client-Side Sovereignty (Zero Data Leaves Machine)</li>
+                        </ul>
+                    </div>
+                    <a href="https://axiom-systemstech.github.io/axiom-taste-refiner/" target="_blank" class="btn-action">
+                        Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="suite-card">
+                    <div class="suite-card-header">
+                        <h3><i class="fa-solid fa-fire"></i> Axiom Blastify</h3>
+                        <p>A unified, zero-bloat micro-notification utility for modern developer architecture. Send instant alerts across Discord, Telegram, or Email using a single, clean function execution. Stop spending hours configuring multiple heavy APIs just to make your local scripts talk to your phone.</p>
+                        <ul class="tech-matrix">
+                            <li><i class="fa-solid fa-sliders"></i> Zero Configuration Friction (One Payload Controls All)</li>
+                            <li><i class="fa-solid fa-shuffle"></i> Multi-Channel Dispatch (Simultaneous or Selective)</li>
+                            <li><i class="fa-solid fa-gauge-high"></i> Ultra-Lightweight Implementation (Minimal Dependency)</li>
+                        </ul>
+                    </div>
+                    <a href="https://axiom-systemstech.github.io/axiom-blastify/" target="_blank" class="btn-action">
+                        Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                </div> </div> <div class="glass-wrapper" id="glassWrapper"></div>
+    </div> </main>
+<footer>
+    © 2026 Axiom Systems. MANTÉN LA SOBERANÍA. SUITE DE HERRAMIENTAS CORRE MÁS RÁPIDO AL SILICIO.
+</footer>
+
+<script>
+    // --- GESTOR EXCLUSIVO DE MODO CLARO / OSCURO ---
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            htmlElement.setAttribute('data-theme', 'light');
+            themeToggle.innerText = 'Dark Mode';
+        } else {
+            htmlElement.setAttribute('data-theme', 'dark');
+            themeToggle.innerText = 'Light Mode';
+        }
+        // Refrescar el cristal matemáticamente al cambiar de modo
+        applyAaveGlass();
+    });
+
+    // --- NÚCLEO MATEMÁTICO DE REFRACCIÓN DE CRISTAL ---
+    function applyAaveGlass() {
+        const wrapper = document.getElementById('glassWrapper');
+        const scene = document.getElementById('glassScene');
+
+        if (!scene || !wrapper) return;
+
+        const w = scene.offsetWidth;
+        const h = scene.offsetHeight;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w; 
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#808080';
+        ctx.fillRect(0, 0, w, h);
+
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const centerX = w / 2;
+        const centerY = h / 2;
+        const radius = Math.min(w, h) * 0.46;
+
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                const dx = x - centerX;
+                const dy = y - centerY;
+                const dist = Math.hypot(dx, dy);
+
+                if (dist < radius) {
+                    const i = (y * w + x) * 4;
+                    imgData.data[i]   = 128 + (dx / radius) * 115; 
+                    imgData.data[i+1] = 128 + (dy / radius) * 115; 
+                    imgData.data[i+2] = 128;
+                    imgData.data[i+3] = 255;
+                }
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+        const mapUrl = canvas.toDataURL();
+
+        const theme = htmlElement.getAttribute('data-theme');
+        const rectFill = theme === 'dark' ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.01)';
+        const rectStroke = theme === 'dark' ? 'rgba(255, 255, 255, 0.14)' : 'rgba(0, 0, 0, 0.10)';
+
+        wrapper.innerHTML = `
+            <svg width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" style="display: block; position: absolute; inset:0;">
+                <defs>
+                    <filter id="nomadGlassFilter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+                        <feImage href="${mapUrl}" result="displacementMap"/>
+                        <feDisplacementMap in="SourceGraphic" in2="displacementMap" scale="38" xChannelSelector="R" yChannelSelector="G"/>
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+                        <feComposite in="blur" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+                    </filter>
+                </defs>
+                <rect width="${w}" height="${h}" rx="40" ry="40" 
+                      fill="${rectFill}" 
+                      filter="url(#nomadGlassFilter)"
+                      stroke="${rectStroke}" 
+                      stroke-width="1.5"/>
+            </svg>
+        `;
+    }
+
+    window.addEventListener('DOMContentLoaded', applyAaveGlass);
+    window.addEventListener('resize', applyAaveGlass);
+</script>
+</body>
+</html>
