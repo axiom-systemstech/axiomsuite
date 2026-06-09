@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
-    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,7 +119,7 @@
     }
 
     main {
-        max-width: 1100px;
+        max-width: 1100px; /* Ampliado para dar más espacio al Grid de herramientas */
         width: 100%;
         margin: auto;
         padding: 20px 24px 80px 24px;
@@ -190,7 +189,7 @@
         gap: 24px;
         width: 100%;
         position: relative;
-        z-index: 20;
+        z-index: 20; /* Por encima del pseudo-cristal para poder clicar los botones */
     }
 
     .suite-card {
@@ -317,9 +316,9 @@
 
     <div class="glass-scene" id="glassScene">
         <div class="glass-bg">
+            
             <div class="suite-grid">
-
-                <div class="suite-card">
+<div class="suite-card">
                     <div class="suite-card-header">
                         <h3><i class="fa-solid fa-key"></i> Axiom Stream-Crypt</h3>
                         <p>The Sovereignty Token & Payload Shaper. Limpia, comprime y anonimiza tus prompts antes de enviarlos a cualquier API de IA. Todo procesado al 100% en local para garantizar cero filtraciones y mantener tu privacidad intacta.</p>
@@ -333,19 +332,14 @@
                         Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </a>
                 </div>
-
-                </div> 
-        </div> 
-        <div class="glass-wrapper" id="glassWrapper"></div>
-    </div> 
-</main>
-
-<footer>
+</div> </div> <div class="glass-wrapper" id="glassWrapper"></div>
+    </div> </main>
+                <footer>
     © 2026 Axiom Systems. MANTÉN LA SOBERANÍA. SUITE DE HERRAMIENTAS CORRE MÁS RÁPIDO AL SILICIO.
 </footer>
 
 <script>
-    // --- GESTOR DE MODO CLARO / OSCURO ---
+    // --- GESTOR EXCLUSIVO DE MODO CLARO / OSCURO ---
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
@@ -358,6 +352,7 @@
             htmlElement.setAttribute('data-theme', 'dark');
             themeToggle.innerText = 'Light Mode';
         }
+        // Refrescar el cristal matemáticamente al cambiar de modo
         applyAaveGlass();
     });
 
