@@ -298,7 +298,9 @@
         width: 100%;
         z-index: 10;
     }
-    <body>
+</style>
+</head>
+<body>
 
 <div class="background-blob-1"></div>
 <div class="background-blob-2"></div>
@@ -315,16 +317,16 @@
 
     <div class="glass-scene" id="glassScene">
         <div class="glass-bg">
-            
             <div class="suite-grid">
-    <div class="suite-card">
+
+                <div class="suite-card">
                     <div class="suite-card-header">
                         <h3><i class="fa-solid fa-key"></i> Axiom Stream-Crypt</h3>
-                        <p>The Sovereignty Token & Payload Shaper. Limpia, comprime y anonimiza tus prompts antes de enviarlos a cualquier API de IA. Ejecución 100% en local para garantizar cero filtraciones y mantener el control absoluto de tus datos.</p>
+                        <p>The Sovereignty Token & Payload Shaper. Limpia, comprime y anonimiza tus prompts antes de enviarlos a cualquier API de IA. Todo procesado al 100% en local para garantizar cero filtraciones y mantener tu privacidad intacta.</p>
                         <ul class="tech-matrix">
-                            <li><i class="fa-solid fa-compress"></i> Compresión Semántica (Optimiza prompts entre un 25-40%)</li>
-                            <li><i class="fa-solid fa-mask"></i> Anonimización Automática (Enmascara emails, IPs y API Keys)</li>
-                            <li><i class="fa-solid fa-shield-halved"></i> Client-Side Footprint (Procesamiento nativo en memoria local)</li>
+                            <li><i class="fa-solid fa-compress"></i> Compresión Semántica (Optimiza el tamaño de tus prompts entre un 25-40%)</li>
+                            <li><i class="fa-solid fa-mask"></i> Anonimización Instantánea (Detecta y oculta emails, IPs y API Keys)</li>
+                            <li><i class="fa-solid fa-shield-halved"></i> Privacidad Absoluta (Cero servidores intermedios, control en tu navegador)</li>
                         </ul>
                     </div>
                     <a href="https://axiom-systemstech.github.io/axiom-stream-crypt/" target="_blank" class="btn-action">
@@ -332,14 +334,18 @@
                     </a>
                 </div>
 
-                </div> </div> <div class="glass-wrapper" id="glassWrapper"></div>
-    </div> </main>
-    <footer>
+                </div> 
+        </div> 
+        <div class="glass-wrapper" id="glassWrapper"></div>
+    </div> 
+</main>
+
+<footer>
     © 2026 Axiom Systems. MANTÉN LA SOBERANÍA. SUITE DE HERRAMIENTAS CORRE MÁS RÁPIDO AL SILICIO.
 </footer>
 
 <script>
-    // --- GESTOR EXCLUSIVO DE MODO CLARO / OSCURO ---
+    // --- GESTOR DE MODO CLARO / OSCURO ---
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
@@ -352,7 +358,6 @@
             htmlElement.setAttribute('data-theme', 'dark');
             themeToggle.innerText = 'Light Mode';
         }
-        // Refrescar el cristal matemáticamente al cambiar de modo
         applyAaveGlass();
     });
 
@@ -425,5 +430,3 @@
 </script>
 </body>
 </html>
-</style>
-</head>
